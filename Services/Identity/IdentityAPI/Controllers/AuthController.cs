@@ -9,7 +9,6 @@ namespace IdentityAPI.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IIdentityService _identityService;
-
     public AuthController(IIdentityService identityService)
     {
         _identityService = identityService;

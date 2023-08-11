@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContentAPI.Controllers;
 
-[Authorize]
+
 [ApiController]
 [Route("api/[controller]")]
 
