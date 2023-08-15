@@ -65,14 +65,15 @@ public class IdentityService : IIdentityService
         var chkUser = await _userCollection.FindAsync<User>(u => u.Email == registerRequestDto.Email);
 
         User newUser = new();
-        if (chkUser == null)
+        if (!chkUser.Any())
         {
             newUser.UserName = registerRequestDto.UserName;
             newUser.CreatedTime = DateTime.Now;
             newUser.Email = registerRequestDto.Email;
             newUser.Password = registerRequestDto.Password;
             await _userCollection.InsertOneAsync(newUser);
-        }
+        }else
+            return Response<RegisterResponseDto>.Fail("username or email already using",(int)HttpStatusCode.Unauthorized);
 
         RegisterResponseDto response = new()
         {
