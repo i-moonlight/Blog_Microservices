@@ -1,4 +1,5 @@
 using System.Net;
+using AutoMapper;
 using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using ContentAPI.Models.Settings;
@@ -10,46 +11,47 @@ namespace ContentAPI.Services;
 public class ContentService : IContentService
 {
     private readonly IMongoCollection<Content> _contentCollection;
+    private readonly IMapper _mapper;
 
-    public ContentService(IDatabaseSettings databaseSettings)
+    public ContentService(IDatabaseSettings databaseSettings, IMapper mapper)
     {
         var client = new MongoClient(databaseSettings.ConnectionString);
         var database = client.GetDatabase(databaseSettings.DatabaseName);
         _contentCollection = database.GetCollection<Content>(databaseSettings.ContentCollectionName);
+        _mapper = mapper;
     }
 
     public async Task<Response<NoContent>> Create(ContentCreateDto contentCreateDto)
     {
-        Content content = new Content
-        {
-            Title = contentCreateDto.Title,
-            Text = contentCreateDto.Text,
-            AuthorId = "1235",
-            ImageUrl = ".png"
-        };
-
+        var content= _mapper.Map<Content>(contentCreateDto);
         await _contentCollection.InsertOneAsync(content);
-
         return Response<NoContent>.Success((int)HttpStatusCode.OK);
     }
 
-    public Task<Response<NoContent>> Delete(string id)
+    public async Task<Response<NoContent>> Delete(string id)
     {
-        throw new NotImplementedException();
+        await _contentCollection.DeleteOneAsync(x => x.Id == id);
+        return Response<NoContent>.Success((int)HttpStatusCode.OK);
     }
 
-    public Task<Response<List<ContentDto>>> GetAll()
+    public async Task<Response<List<ContentDto>>> GetAll()
     {
-        return Task.FromResult(new Response<List<ContentDto>>());
+        var contents = await _contentCollection.FindSync(content => true).ToListAsync();
+        var contentDtos=_mapper.Map<List<ContentDto>>(contents);
+        return Response<List<ContentDto>>.Success(contentDtos, (int)HttpStatusCode.OK);
     }
 
-    public Task<Response<ContentDto>> GetById(string id)
+    public async Task<Response<ContentDto>> GetById(string id)
     {
-        throw new NotImplementedException();
+        var content = await _contentCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        var contentDto=_mapper.Map<ContentDto>(content);
+        return Response<ContentDto>.Success(contentDto, (int)HttpStatusCode.OK);
     }
 
-    public Task<Response<NoContent>> Update(ContentUpdateDto contentUpdateDto)
+    public async Task<Response<NoContent>> Update(ContentUpdateDto contentUpdateDto)
     {
-        throw new NotImplementedException();
+        var content=_mapper.Map<Content>(contentUpdateDto);
+        await _contentCollection.ReplaceOneAsync(content => content.Id == contentUpdateDto.Id, content);
+        return Response<NoContent>.Success((int)HttpStatusCode.OK);
     }
 }
