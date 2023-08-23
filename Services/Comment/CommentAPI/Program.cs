@@ -1,11 +1,17 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using CommentAPI.Services;
+using Couchbase.Extensions.DependencyInjection;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var cochh=builder.Configuration.GetSection("Couchbase");
+builder.Services.AddCouchbase(builder.Configuration.GetSection("Couchbase"));
+builder.Services.AddSingleton<ICommentService,CommentService>();
 
 var app = builder.Build();
 

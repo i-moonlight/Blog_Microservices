@@ -3,3 +3,4 @@ gateway        : 5000
 identityServer : 5001
 
 contentApi     : 5015
+commentApi     : 5016
