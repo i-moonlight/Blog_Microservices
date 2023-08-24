@@ -4,3 +4,4 @@ identityServer : 5001
 
 contentApi     : 5015
 commentApi     : 5016
+reactionApi    : 5017

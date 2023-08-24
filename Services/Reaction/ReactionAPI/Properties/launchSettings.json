@@ -4,15 +4,15 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:26507",
-      "sslPort": 44394
+      "applicationUrl": "http://localhost:36043",
+      "sslPort": 44346
     }
   },
   "profiles": {
-    "CommentAPI": {
+    "ContentAPI": {
       "commandName": "Project",
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5016",
+      "applicationUrl": "http://localhost:5017",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
