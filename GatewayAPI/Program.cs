@@ -13,17 +13,17 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
-IConfiguration OcelotConfiguration = new ConfigurationBuilder()
-                            .AddJsonFile("ocelot.json")
-                            .Build();
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
+builder.Services.AddOcelot(builder.Configuration);
+                            
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("thisiskey92_thisiskey92_thisiskey92_thisiskey92ythisiskey92_thisiskey92_thisiskey92_thisiskey92y")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["SigningKey"])),
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true
@@ -34,8 +34,6 @@ builder.Services.AddAuthorization(options =>
 {
     options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
-
-builder.Services.AddOcelot(OcelotConfiguration);
 
 var app = builder.Build();
 

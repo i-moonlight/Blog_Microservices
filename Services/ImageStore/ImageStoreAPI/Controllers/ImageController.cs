@@ -8,7 +8,6 @@ namespace ImageStoreAPI.Controllers;
 [Route("api/[controller]")]
 public class ImageController : CustomBaseController
 {
-
     private readonly IImageService _imageService;
 
     public ImageController(IImageService imageService)

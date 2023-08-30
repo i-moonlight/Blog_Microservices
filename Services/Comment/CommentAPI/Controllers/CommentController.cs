@@ -1,11 +1,13 @@
 using CommentAPI.Models.Dtos;
 using CommentAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedLib.ControllerBases;
 
 namespace CommentControllerAPI.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class CommentController : CustomBaseController
 {

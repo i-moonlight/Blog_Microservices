@@ -4,17 +4,9 @@ namespace ImageStoreAPI.Services;
 
 public class ImageService : IImageService
 {
-    private static readonly string ImageUploadPath = "Uploads"; // Dosyaların yükleneceği klasör
-
-
+    private static readonly string ImageUploadPath = "Uploads";
     public async Task<Response<string>> UploadImage(IFormFile file)
     {
-        // string uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), ImageUploadPath);
-        // if (!Directory.Exists(uploadFolderPath))
-        // {
-        //     Directory.CreateDirectory(uploadFolderPath);
-        // }
-
         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
         string filePath = Path.Combine("wwwroot", ImageUploadPath, fileName);
 

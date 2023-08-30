@@ -12,7 +12,6 @@ public class CommentService : ICommentService
     private readonly IBucketProvider _bucketProvider;
     private readonly string _bucketName;
     private readonly IMapper _mapper;
-
     public CommentService(IBucketProvider bucketProvider, IConfiguration configuration, IMapper mapper)
     {
         _bucketProvider = bucketProvider;
