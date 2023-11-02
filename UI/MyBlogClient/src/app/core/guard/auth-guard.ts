@@ -8,8 +8,11 @@ export const canActivate: CanActivateFn = async (
 ) => {
 
     const router = inject(Router);
-    let user ="user..."
+    let user ="user..." 
 
+
+    console.log(localStorage.getItem("username"))
+    // if(localStorage.getItem("username"))
     
 
     return true;

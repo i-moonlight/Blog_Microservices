@@ -1,23 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpHelperService } from 'src/app/core/services/app.service';
+import { UserLoginDto } from '../models/userLoginDto';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private httpClient:HttpHelperService) { }
 
-  login(){
-    let userDto:UserLoginDto={username:"hamit",password:"123456"}
+  identityUrl: string = "http://localhost:5001/api";
 
-   return this.httpClient.post("Auth/Login",userDto)
+  constructor(private http: HttpClient) {
+
   }
 
-}
+  login(userLoginDto:UserLoginDto):Observable<any> {
+    return this.http.post(`${this.identityUrl}/Auth/Login`, userLoginDto)
+  }
 
-export interface UserLoginDto{
-username:string;
-password:string;
 }

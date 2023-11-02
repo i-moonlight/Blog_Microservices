@@ -10,12 +10,12 @@ import { map } from 'rxjs/operators';
 
 export class HttpHelperService {
 
-  apiUrl: string = "http://localhost:5001/api";
+  apiUrl: string = "http://localhost:5000/services";
 
   constructor(private http: HttpClient) {
-    
+
   }
-  
+
   get(endpoint: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${endpoint}`);
   }
@@ -32,6 +32,31 @@ export class HttpHelperService {
     return this.http.delete(`${this.apiUrl}/${endpoint}`);
   }
 }
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpHeaderInterceptorService implements HttpInterceptor {
+
+  constructor() { }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    var token = localStorage.getItem("token")!;
+    console.log(token)
+    
+
+    req = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
+    });
+    
+    console.log("req")
+    console.log(req)
+
+    return next.handle(req);
+  }
+}
+
 
 
 
