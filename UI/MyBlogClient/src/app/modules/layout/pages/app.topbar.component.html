@@ -1,0 +1,41 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/database_128.png" alt="logo">
+        <span>My Blog</span>
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <button class="p-link layout-topbar-button" (click)="op.toggle($event)">
+            <i class="pi pi-user"></i>
+            <span>Profile</span>
+        </button>
+    </div>
+</div>
+<p-overlayPanel #op>
+    <ng-template pTemplate="content">
+        <!-- <i class="pi pi-angle-right"></i> {{user.profile['FullName']}}
+        <hr>
+        <i class="pi pi-envelope"></i> {{user.profile['Email']}}
+        <hr> -->
+        
+            <button class="p-link layout-topbar-button" (click)="signOut()">
+                <i class="pi pi-sign-out"></i>
+                <span> Sign Out</span>
+            </button>
+        
+        
+            <button class="p-link layout-topbar-button" (click)="signIn()">
+                <i class="pi pi-sign-in"></i>
+                <span> Sign In</span>
+            </button>
+        
+    </ng-template>
+</p-overlayPanel>

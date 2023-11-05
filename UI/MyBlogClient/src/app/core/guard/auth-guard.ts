@@ -8,12 +8,13 @@ export const canActivate: CanActivateFn = async (
 ) => {
 
     const router = inject(Router);
-    let user ="user..." 
 
+    console.log(localStorage.getItem("token"))
 
-    console.log(localStorage.getItem("username"))
-    // if(localStorage.getItem("username"))
-    
-
-    return true;
+    if (localStorage.getItem("token") == "" || localStorage.getItem("token") == undefined) {
+        router.navigateByUrl("/auth/login")
+        return false;
+    } else {
+        return true;
+    }
 };

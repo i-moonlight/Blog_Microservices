@@ -1,0 +1,12 @@
+<div class="grid">
+    <div class="col-12 md:col-4" *ngFor="let contentDto of contentDtos">
+        <p-card header="{{contentDto.title}}" >
+            <ng-template pTemplate="header">
+                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+            </ng-template>
+            <p class="m-0">
+                {{contentDto.text}}
+            </p>
+        </p-card>
+    </div>
+</div>

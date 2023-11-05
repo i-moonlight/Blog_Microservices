@@ -6,11 +6,11 @@ import { HttpHelperService } from 'src/app/core/services/app.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class ContentService {
 
-  constructor(private httpHelperService:HttpHelperService) { }
+  constructor(private httpHelperService: HttpHelperService) { }
 
-  categories():Observable<ReturnObject>{
-    return this.httpHelperService.get("category/category/getall")
+  contents(): Observable<ReturnObject> {
+    return this.httpHelperService.get("content/content/getall")
   }
 }

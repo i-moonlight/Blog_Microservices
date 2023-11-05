@@ -1,0 +1,29 @@
+.card {
+    background: var(--surface-card);
+    // background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    border: 1px solid var(--surface-border);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--card-shadow);
+    border-radius: $borderRadius;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &:hover {
+        box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2); /* Yeni gölge efekti */
+        border-color: rgb(0, 195, 255); /* Yeni border kalınlığı */
+        background-color: rgb(238, 247, 250);
+        cursor: pointer;
+    }
+}
+
+.p-toast {
+    &.p-toast-top-right,
+    &.p-toast-top-left,
+    &.p-toast-top-center {
+        top: 100px;
+    }
+}

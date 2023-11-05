@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserLoginDto } from '../../models/userLoginDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { UserLoginDto } from '../../models/userLoginDto';
 })
 export class LoginComponent {
   userLoginDto: UserLoginDto = new UserLoginDto()
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router:Router) {
 
   }
 
@@ -18,6 +19,8 @@ export class LoginComponent {
       if (rv.errors == null) {
         localStorage.setItem("token", rv.data.token)
         localStorage.setItem("username", rv.data.username)
+        this.router.navigateByUrl("/")
+
       } else {
         alert(rv.errors)
       }
