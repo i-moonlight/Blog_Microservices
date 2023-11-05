@@ -45,17 +45,17 @@ public class IdentityService : IIdentityService
     public async Task<Response<LoginResponseDto>> Login(LoginRequestDto loginRequestDto)
     {
         var chkUser = await _userCollection.FindAsync<User>(u =>
-        u.UserName == loginRequestDto.UserName &&
+        u.Username == loginRequestDto.Username &&
         u.Password == loginRequestDto.Password);
 
         if (!chkUser.Any())
             return Response<LoginResponseDto>.Fail("User not found", (int)HttpStatusCode.Unauthorized);
-        
+
 
         LoginResponseDto response = new()
         {
-            Token = GenerateToken(loginRequestDto.UserName),
-            UserName = loginRequestDto.UserName
+            Token = GenerateToken(loginRequestDto.Username),
+            Username = loginRequestDto.Username
         };
 
         return Response<LoginResponseDto>.Success(response, 200);
@@ -67,17 +67,18 @@ public class IdentityService : IIdentityService
         User newUser = new();
         if (!chkUser.Any())
         {
-            newUser.UserName = registerRequestDto.UserName;
+            newUser.Username = registerRequestDto.Username;
             newUser.CreatedTime = DateTime.Now;
             newUser.Email = registerRequestDto.Email;
             newUser.Password = registerRequestDto.Password;
             await _userCollection.InsertOneAsync(newUser);
-        }else
-            return Response<RegisterResponseDto>.Fail("username or email already using",(int)HttpStatusCode.Unauthorized);
+        }
+        else
+            return Response<RegisterResponseDto>.Fail("username or email already using", (int)HttpStatusCode.Unauthorized);
 
         RegisterResponseDto response = new()
         {
-            user = newUser
+            User = newUser
         };
 
         return Response<RegisterResponseDto>.Success(response, 200);

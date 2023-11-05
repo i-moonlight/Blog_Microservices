@@ -12,7 +12,7 @@
     "MyBlogAPI": {
       "commandName": "Project",
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5020",
+      "applicationUrl": "http://localhost:5015",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
