@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  MyBlog_CategoryDb:
+    image: mongo:latest
+    ports:
+      - "27020:27017"
+    volumes:
+      - category_data:/data/db
+
+  MyBlog_ReactionDb:
+    image: mongo:latest
+    ports:
+      - "27019:27017"
+    volumes:
+      - reaction_data:/data/db
+
+  MyBlog_CommentDb:
+    image: couchbase:community
+    ports:
+      - "8091-8094:8091-8094"
+      - "11210:11210"
+      - "8095-8097"
+      - "11207"
+      - "11280"
+    volumes:
+      - comment_data:/var/lib/couchbase/data
+
+  MyBlog_ContentDb:
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - content_data:/data/db
+
+  MyBlog_IdentityDb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - identity_data:/data/db
+
+volumes:
+  category_data:
+  reaction_data:
+  comment_data:
+  content_data:
+  identity_data:
