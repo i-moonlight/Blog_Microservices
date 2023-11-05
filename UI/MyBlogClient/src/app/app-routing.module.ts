@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: "", component: AppLayoutComponent, canActivate: [canActivate], children:
       [
-        { path: "contents", loadChildren: () => import("./modules/content/content.module").then(x => x.ContentModule) },
+        { path: "", loadChildren: () => import("./modules/content/content.module").then(x => x.ContentModule) },
         { path: "categories", loadChildren: () => import("./modules/category/category.module").then(x => x.CategoryModule) }
       ]
   }

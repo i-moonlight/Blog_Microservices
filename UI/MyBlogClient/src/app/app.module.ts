@@ -6,7 +6,11 @@ import { AppComponent } from './app.component';
 import { HttpHeaderInterceptorService } from './core/services/app.service';
 import { LayoutModule } from './modules/layout/layout.module';
 import { MessageService } from 'primeng/api';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +19,12 @@ import { MessageService } from 'primeng/api';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    LayoutModule
+    LayoutModule,
+    JwtModule.forRoot({
+      config:{
+        tokenGetter:tokenGetter
+      }
+    })
   ],
   providers: [
     {
@@ -24,6 +33,7 @@ import { MessageService } from 'primeng/api';
       multi: true
     },
     MessageService
+      
   ],
     
   bootstrap: [AppComponent],

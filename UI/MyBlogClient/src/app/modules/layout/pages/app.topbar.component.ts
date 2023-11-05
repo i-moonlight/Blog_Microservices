@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../services/layout.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -16,17 +17,20 @@ export class AppTopBarComponent implements OnInit {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    loginCheck:boolean=false
+    constructor(public layoutService: LayoutService,private router:Router) { }
 
     ngOnInit() {
         
     }
 
     signOut() {
-        
+        localStorage.setItem("username","")
+        localStorage.setItem("token","")
+        this.router.navigateByUrl("/auth/login")
     }
 
     signIn() {
-        
+        this.router.navigateByUrl("/auth/login")
     }
 }

@@ -1,5 +1,6 @@
 import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 
 export const canActivate: CanActivateFn = async (
@@ -8,10 +9,12 @@ export const canActivate: CanActivateFn = async (
 ) => {
 
     const router = inject(Router);
+    
+    const jwtHelperService = inject(JwtHelperService);
 
-    console.log(localStorage.getItem("token"))
+    var isTokenExpired = jwtHelperService.isTokenExpired(localStorage.getItem("token"))
 
-    if (localStorage.getItem("token") == "" || localStorage.getItem("token") == undefined) {
+    if (isTokenExpired) {
         router.navigateByUrl("/auth/login")
         return false;
     } else {
