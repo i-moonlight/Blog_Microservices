@@ -6,7 +6,7 @@ using SharedLib.ControllerBases;
 
 namespace ContentAPI.Controllers;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ContentController : CustomBaseController
@@ -29,6 +29,13 @@ public class ContentController : CustomBaseController
     public async Task<IActionResult> GetById(string id)
     {
         var content = await _contentService.GetById(id);
+        return CreateActionResultInstance(content);
+    }
+
+    [HttpGet("GetAllByCategoryName")]
+    public async Task<IActionResult> GetAllByCategoryName(string categoryId)
+    {
+        var content = await _contentService.GetAllByCategoryId(categoryId);
         return CreateActionResultInstance(content);
     }
 

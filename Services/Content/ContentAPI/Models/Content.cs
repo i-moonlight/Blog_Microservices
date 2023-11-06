@@ -15,4 +15,5 @@ public class Content
     public DateTime CreatedTime { get; set; }=DateTime.Now;
     public string ImageUrl { get; set; }
     public bool IsActive { get; set; }=true;
+    public string CategoryId { get; set; }
 }

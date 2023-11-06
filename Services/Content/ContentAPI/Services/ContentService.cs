@@ -41,6 +41,13 @@ public class ContentService : IContentService
         return Response<List<ContentDto>>.Success(contentDtos, (int)HttpStatusCode.OK);
     }
 
+    public async Task<Response<List<ContentDto>>> GetAllByCategoryId(string id)
+    {
+        var contents = await _contentCollection.FindSync(content => content.CategoryId==id).ToListAsync();
+        var contentDtos=_mapper.Map<List<ContentDto>>(contents);
+        return Response<List<ContentDto>>.Success(contentDtos, (int)HttpStatusCode.OK);
+    }
+
     public async Task<Response<ContentDto>> GetById(string id)
     {
         var content = await _contentCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
