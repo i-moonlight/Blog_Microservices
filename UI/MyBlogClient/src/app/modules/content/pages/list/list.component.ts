@@ -9,17 +9,15 @@ import { ContentDto } from '../../models/contentDto';
 })
 export class ListComponent implements OnInit {
 
-  contentDtos:ContentDto[]=[]
+  contentDtos: ContentDto[] = []
 
   constructor(private contentService: ContentService) {
 
   }
 
   ngOnInit(): void {
-    this.contentService.contents().subscribe(rv=>{
-      console.log(rv)
-
-      this.contentDtos=rv.data
+    this.contentService.contents().subscribe(rv => {
+      this.contentDtos = rv.data
     })
   }
 

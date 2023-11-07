@@ -13,4 +13,13 @@ export class ContentService {
   contents(): Observable<ReturnObject> {
     return this.httpHelperService.get("content/content/getall")
   }
+
+  contentByCategoryId(id:string): Observable<ReturnObject> {
+    return this.httpHelperService.get("content/content/GetAllByCategoryName?categoryId="+id)
+  }
+
+  contentDetaild(id:string): Observable<ReturnObject> {
+    return this.httpHelperService.get("content/content/GetById?id="+id)
+  }
+
 }

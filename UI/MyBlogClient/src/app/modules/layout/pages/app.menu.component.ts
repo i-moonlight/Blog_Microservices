@@ -25,7 +25,7 @@ export class AppMenuComponent implements OnInit {
             this.categories.forEach(element => {
                 var newMenuItem:NewMenuItem=new NewMenuItem();
                 newMenuItem.label=element.name
-                newMenuItem.routerLink=element.name
+                newMenuItem.routerLink="/category-of-content/"+element.id
                 newMenuItem.icon="pi pi-fw pi-angle-right"
                 newMenuItems.push(newMenuItem)
             });
