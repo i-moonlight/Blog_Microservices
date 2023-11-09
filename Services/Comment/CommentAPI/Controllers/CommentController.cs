@@ -7,7 +7,7 @@ using SharedLib.ControllerBases;
 namespace CommentControllerAPI.Controllers;
 
 [ApiController]
-[Authorize]
+// [Authorize]
 [Route("api/[controller]")]
 public class CommentController : CustomBaseController
 {
@@ -22,6 +22,13 @@ private readonly ICommentService _commentService;
     public async Task<IActionResult> GetAll()
     {
         var contents = await _commentService.GetAll();
+        return CreateActionResultInstance(contents);
+    }
+
+    [HttpGet("GetAllByContentId")]
+    public async Task<IActionResult> GetAllByContentId(string contentId)
+    {
+        var contents = await _commentService.GetAllByContentId(contentId);
         return CreateActionResultInstance(contents);
     }
 
@@ -46,7 +53,6 @@ private readonly ICommentService _commentService;
         var response = await _commentService.Update(commentUpdateDto);
         return CreateActionResultInstance(response);
     }
-
 
     [HttpDelete("Delete")]
     public async Task<IActionResult> Delete(string contentId)

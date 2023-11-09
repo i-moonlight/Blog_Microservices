@@ -25,6 +25,7 @@ public class CommentService : ICommentService
         var comment = new Comment
         {
             Id = Guid.NewGuid().ToString(),
+            ContentId=commentCreateDto.ContentId,
             Text = commentCreateDto.Text
         };
         await collection.InsertAsync<Comment>(comment.Id, comment);
@@ -43,6 +44,17 @@ public class CommentService : ICommentService
     {
         var cluster = (await _bucketProvider.GetBucketAsync(_bucketName)).Cluster;
         var query = "select c.* from `Comment` c";
+        var result = await cluster.QueryAsync<Comment>(query);
+        var comments = await result.ToListAsync();
+        var commentDtos = _mapper.Map<List<CommentDto>>(comments);
+
+        return Response<List<CommentDto>>.Success(commentDtos, 200);
+    }
+
+    public async Task<Response<List<CommentDto>>> GetAllByContentId(string contentId)
+    {
+         var cluster = (await _bucketProvider.GetBucketAsync(_bucketName)).Cluster;
+        var query = $"select c.* from `Comment` c where c.contentId='{contentId}'";
         var result = await cluster.QueryAsync<Comment>(query);
         var comments = await result.ToListAsync();
         var commentDtos = _mapper.Map<List<CommentDto>>(comments);
