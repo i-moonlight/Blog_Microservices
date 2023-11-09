@@ -1,13 +1,29 @@
-
 <div class="grid">
     <div class="col-12 md:col-12">
-        <p-card header="{{contentDto.title}}" >
+        <p-card header="{{contentDto.title}}">
             <ng-template pTemplate="header">
-                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" height="200"/>
             </ng-template>
             <p class="m-0">
                 {{contentDto.text}}
             </p>
+            <ng-template pTemplate="footer">
+                <i class="pi pi-heart-fill" style="font-size: 1rem; cursor: pointer;" (click)="like()"></i>
+            </ng-template>
         </p-card>
+    </div>
+</div>
+<div class="grid">
+    <div class="col-12 md:col-12">
+        <ul>
+            <li *ngFor="let item of commentDtos">{{item.text}} </li>
+        </ul>
+    </div>
+    <div class="col-12 md:col-12">
+        <textarea rows="5" cols="30" style="width: 100%;" placeholder="comment ..." pInputTextarea
+            [(ngModel)]="comment"></textarea>
+    </div>
+    <div class="col-12 md:col-12">
+        <p-button label="Send Comment" (onClick)="sendCommend()"></p-button>
     </div>
 </div>

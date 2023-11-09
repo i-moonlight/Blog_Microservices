@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContentService } from '../../services/content.service';
 import { ContentDto } from '../../models/contentDto';
+import { CommentDto } from '../../models/commentDto';
 
 @Component({
   selector: 'app-detail',
@@ -12,7 +13,9 @@ export class DetailComponent implements OnInit {
 
   contentId!: string;
   contentDto: ContentDto = new ContentDto();
-
+  comment!: string;
+  commentDtos:CommentDto[]=[]
+  
   constructor(private contentService: ContentService, private route: ActivatedRoute) {
 
   }
@@ -22,9 +25,29 @@ export class DetailComponent implements OnInit {
       var id = p["id"]
       this.contentService.contentDetaild(id).subscribe(rv => {
         this.contentDto = rv.data;
+        this.comments()
       })
     })
 
   }
 
+  like() {
+    console.log("like")
+  }
+  sendCommend() {
+    var comment: CommentDto = new CommentDto();
+    comment.contentId = this.contentDto.id;
+    comment.text = this.comment;
+    this.contentService.sendComment(comment).subscribe(rv => {
+      console.log(rv);
+    })
+
+  }
+
+  comments() {
+    this.contentService.comments(this.contentDto.id).subscribe(rv => {
+      console.log(rv);
+      this.commentDtos=rv.data
+    })
+  }
 }
