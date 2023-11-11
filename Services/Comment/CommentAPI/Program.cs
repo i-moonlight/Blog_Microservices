@@ -4,6 +4,7 @@ using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,14 +26,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddSingleton(sp => new ConnectionFactory()
+{
+    HostName = "localhost",
+    UserName = "guest",
+    Password = "guest"
+});
+
 builder.Services.AddAuthorization(options =>
 {
     options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
 
-var cochh=builder.Configuration.GetSection("Couchbase");
+var cochh = builder.Configuration.GetSection("Couchbase");
 builder.Services.AddCouchbase(builder.Configuration.GetSection("Couchbase"));
-builder.Services.AddSingleton<ICommentService,CommentService>();
+builder.Services.AddSingleton<ICommentService, CommentService>();
 
 var app = builder.Build();
 

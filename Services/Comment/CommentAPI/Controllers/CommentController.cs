@@ -43,7 +43,6 @@ private readonly ICommentService _commentService;
     public async Task<IActionResult> Create(CommentCreateDto commentCreateDto)
     {
         var response = await _commentService.Create(commentCreateDto);
-
         return CreateActionResultInstance(response);
     }
 

@@ -16,4 +16,6 @@ public class Content
     public string ImageUrl { get; set; }
     public bool IsActive { get; set; }=true;
     public string CategoryId { get; set; }
+    public User User { get; set; }
+    public List<Comment> Comments { get; set; }
 }

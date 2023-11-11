@@ -1,4 +1,5 @@
 using ContentAPI.Models.Dtos;
+using RabbitMQ.Client;
 using SharedLib.Dtos;
 
 namespace ContentAPI.Services;

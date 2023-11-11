@@ -1,9 +1,12 @@
 using System.Net;
+using System.Text;
 using AutoMapper;
 using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using ContentAPI.Models.Settings;
 using MongoDB.Driver;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using SharedLib.Dtos;
 
 namespace ContentAPI.Services;
@@ -13,6 +16,7 @@ public class ContentService : IContentService
     private readonly IMongoCollection<Content> _contentCollection;
     private readonly IMapper _mapper;
 
+
     public ContentService(IDatabaseSettings databaseSettings, IMapper mapper)
     {
         var client = new MongoClient(databaseSettings.ConnectionString);
@@ -20,6 +24,8 @@ public class ContentService : IContentService
         _contentCollection = database.GetCollection<Content>(databaseSettings.ContentCollectionName);
         _mapper = mapper;
     }
+
+    
 
     public async Task<Response<NoContent>> Create(ContentCreateDto contentCreateDto)
     {

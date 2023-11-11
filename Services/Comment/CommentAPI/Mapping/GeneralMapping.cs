@@ -13,5 +13,6 @@ public class GeneralMapping : Profile
         CreateMap<Comment, CommentDto>().ReverseMap();
         CreateMap<Comment, CommentUpdateDto>().ReverseMap();
         CreateMap<Comment, CommentCreateDto>().ReverseMap();
+        CreateMap<CommentCreatedEvent, CommentDto>().ReverseMap();
     }
 }
