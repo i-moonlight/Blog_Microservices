@@ -9,17 +9,17 @@
             </p>
             <ng-template pTemplate="footer">
                 <i class="pi pi-heart" style="font-size: 2rem; cursor: pointer;margin-right: 20px;" (click)="like()"></i>
-                <i class="pi pi-comment" style="font-size: 2rem; cursor: pointer;margin-right: 20px;">{{commentDtos.length}} </i>
+                <i class="pi pi-comment" style="font-size: 2rem; cursor: pointer;margin-right: 20px;">{{contentDto.comments.length}} </i>
                 <i class="pi pi-link" style="font-size: 2rem; cursor: pointer;margin-right: 20px;"></i>
             </ng-template>
         </p-card>
     </div>
 </div>
 <div class="grid">
-    <div class="col-12 md:col-12" *ngIf="commentDtos.length>0">
+    <div class="col-12 md:col-12" *ngIf="contentDto.comments.length>0">
         <p-card header="Comments">
             <div style="overflow-y: auto;height: 20vh;">
-                <div *ngFor="let item of commentDtos">
+                <div *ngFor="let item of contentDto.comments">
                     <p-divider align="left">
                         <div class="inline-flex align-items-center">
                             <i class="pi pi-user mr-2"> </i>

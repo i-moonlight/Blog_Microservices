@@ -24,12 +24,7 @@ export class ContentService {
     return this.httpHelperService.get("content/content/GetById?id=" + id)
   }
 
-  comments(contentId: string): Observable<ReturnObject> {
-    return this.httpHelperService.get("comment/comment/GetAllByContentId?contentId=" + contentId)
-  }
-
   sendComment(commentDto: CommentDto) {
-    console.log(commentDto)
     return this.httpHelperService.post("comment/comment/Create", commentDto)
   }
 
