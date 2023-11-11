@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using AutoMapper;
+using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -20,54 +22,39 @@ namespace ContentAPI.Services
         public static string RoutingComment = "comment-route-send";
         public static string QueueName = "queue-comment-send";
         private readonly IServiceProvider _serviceProvider;
+        private readonly IContentService _contentService;
+        private readonly IMapper _mapper;
 
-        public ContentBackgroundService(ConnectionFactory connectionFactory, IServiceProvider serviceProvider)
+        public ContentBackgroundService(ConnectionFactory connectionFactory, IServiceProvider serviceProvider, IContentService contentService, IMapper mapper)
         {
             _connectionFactory = connectionFactory;
             _channel = Connect();
             _serviceProvider = serviceProvider;
+            _contentService = contentService;
+            _mapper = mapper;
         }
-     
+
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-             using (var scope = _serviceProvider.CreateScope())
+            using (var scope = _serviceProvider.CreateScope())
             {
-                
                 var channel = Connect();
-
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, ea) =>
                 {
-                    var body = ea.Body.ToArray();
-                    var comment = Encoding.UTF8.GetString(body);
+                    var commentCreatedEvent = JsonSerializer.Deserialize<CommentCreatedEvent>(Encoding.UTF8.GetString(ea.Body.ToArray()));
+                    var comment=_mapper.Map<Comment>(commentCreatedEvent);
+                    _contentService.UpdateComment(comment);
                 };
 
                 channel.BasicConsume(queue: QueueName, autoAck: true, consumer: consumer);
 
                 while (!stoppingToken.IsCancellationRequested)
-                {   
-                    await Task.Delay(1000, stoppingToken); 
+                {
+                    await Task.Delay(1000, stoppingToken);
                 }
             }
-        }
-
-        private Task Consumer_Received(object sender, BasicDeliverEventArgs @event)
-        {
-            try
-            {
-                var commentCreatedEvent = JsonSerializer.Deserialize<CommentCreatedEvent>(Encoding.UTF8.GetString(@event.Body.ToArray()));
-
-
-                _channel.BasicAck(@event.DeliveryTag, false);
-            }
-            catch (System.Exception ex)
-            {
-
-
-            }
-
-            return Task.CompletedTask;
         }
 
         public IModel Connect()

@@ -1,3 +1,4 @@
+using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using RabbitMQ.Client;
 using SharedLib.Dtos;
@@ -11,6 +12,7 @@ public interface IContentService
     Task<Response<List<ContentDto>>> GetAllByCategoryId(string id);
     Task<Response<NoContent>> Create(ContentCreateDto contentCreateDto);
     Task<Response<NoContent>> Update(ContentUpdateDto contentUpdateDto);
+    Task<Response<NoContent>> UpdateComment(Comment comment);
     Task<Response<NoContent>> Delete(string id);
 
 }
