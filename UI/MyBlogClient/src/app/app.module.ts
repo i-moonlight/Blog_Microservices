@@ -7,9 +7,11 @@ import { HttpHeaderInterceptorService } from './core/services/app.service';
 import { LayoutModule } from './modules/layout/layout.module';
 import { MessageService } from 'primeng/api';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { User } from './core/models/user';
 
 export function tokenGetter() {
-  return localStorage.getItem("token");
+  var user= JSON.parse(localStorage.getItem("user")!) as User
+  return user.token;
 }
 @NgModule({
   declarations: [

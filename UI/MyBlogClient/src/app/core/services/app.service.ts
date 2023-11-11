@@ -2,6 +2,7 @@ import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpR
 import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { Observable, from, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
 
 
 @Injectable({
@@ -42,14 +43,17 @@ export class HttpHeaderInterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    var token = localStorage.getItem("token")!;
-    
+
+    var user = JSON.parse(localStorage.getItem("user")!) as User
+    if (user == null)
+      user = new User();
     req = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` }
+      setHeaders: { Authorization: `Bearer ${user.token}` }
     });
     return next.handle(req);
   }
 }
+
 
 
 

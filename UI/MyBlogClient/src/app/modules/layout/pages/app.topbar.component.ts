@@ -25,8 +25,7 @@ export class AppTopBarComponent implements OnInit {
     }
 
     signOut() {
-        localStorage.setItem("username","")
-        localStorage.setItem("token","")
+        localStorage.setItem("user","")
         this.router.navigateByUrl("/auth/login")
     }
 

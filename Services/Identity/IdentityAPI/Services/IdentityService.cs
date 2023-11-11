@@ -44,18 +44,23 @@ public class IdentityService : IIdentityService
     }
     public async Task<Response<LoginResponseDto>> Login(LoginRequestDto loginRequestDto)
     {
-        var chkUser = await _userCollection.FindAsync<User>(u =>
-        u.Username == loginRequestDto.Username &&
-        u.Password == loginRequestDto.Password);
+        // var chkUser = await _userCollection.FindAsync<User>(u =>
+        // u.Username == loginRequestDto.Username &&
+        // u.Password == loginRequestDto.Password);
 
-        if (!chkUser.Any())
+        var user = await _userCollection.Find(u =>
+        u.Username == loginRequestDto.Username &&
+        u.Password == loginRequestDto.Password).FirstOrDefaultAsync();
+
+        if (user==null)
             return Response<LoginResponseDto>.Fail("User not found", (int)HttpStatusCode.Unauthorized);
 
 
         LoginResponseDto response = new()
         {
-            Token = GenerateToken(loginRequestDto.Username),
-            Username = loginRequestDto.Username
+            Token = GenerateToken(user.Username),
+            Username = user.Username,
+            Id=user.Id
         };
 
         return Response<LoginResponseDto>.Success(response, 200);

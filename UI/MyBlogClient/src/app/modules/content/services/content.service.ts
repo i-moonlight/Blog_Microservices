@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ReturnObject } from 'src/app/core/models/returnObject';
 import { HttpHelperService } from 'src/app/core/services/app.service';
 import { CommentDto } from '../models/commentDto';
+import { User } from 'src/app/core/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,12 @@ export class ContentService {
   }
 
   sendComment(commentDto: CommentDto) {
+    console.log(commentDto)
     return this.httpHelperService.post("comment/comment/Create", commentDto)
+  }
+
+  getUser(){
+    return JSON.parse(localStorage.getItem("user")!) as User
   }
 
 }
