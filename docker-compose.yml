@@ -39,6 +39,18 @@ services:
       - "27017:27017"
     volumes:
       - identity_data:/data/db
+  
+  MyBlog_Rabbitmq:
+    image: rabbitmq:3.11.16-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - my-network
+    container_name: rabbitmqcontainer
+    restart: always
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   category_data:
@@ -46,3 +58,4 @@ volumes:
   comment_data:
   content_data:
   identity_data:
+  rabbitmq_data:
