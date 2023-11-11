@@ -26,7 +26,8 @@ public class CommentService : ICommentService
         {
             Id = Guid.NewGuid().ToString(),
             ContentId=commentCreateDto.ContentId,
-            Text = commentCreateDto.Text
+            Text = commentCreateDto.Text,
+            User=commentCreateDto.User
         };
         await collection.InsertAsync<Comment>(comment.Id, comment);
         return Response<NoContent>.Success(200);
