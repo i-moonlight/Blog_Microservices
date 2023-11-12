@@ -1,0 +1,159 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "IdentityAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-IdentityAPI",
+      "program": "${workspaceFolder}/Services/Identity/IdentityAPI/bin/Debug/net7.0/IdentityAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Identity/IdentityAPI",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "GatewayAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-GatewayAPI",
+      "program": "${workspaceFolder}/GatewayAPI/bin/Debug/net7.0/GatewayAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/GatewayAPI",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "ContentAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ContentAPI",
+      "program": "${workspaceFolder}/Services/Content/ContentAPI/bin/Debug/net7.0/ContentAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Content/ContentAPI",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "CategoryAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-CategoryAPI",
+      "program": "${workspaceFolder}/Services/Category/CategoryAPI/bin/Debug/net7.0/CategoryAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Category/CategoryAPI",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "CommentAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-CommentAPI",
+      "program": "${workspaceFolder}/Services/Comment/CommentAPI/bin/Debug/net7.0/CommentAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Comment/CommentAPI",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "ReactionAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ReactionAPI",
+      "program": "${workspaceFolder}/Services/Reaction/ReactionAPI/bin/Debug/net7.0/ReactionAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Reaction/ReactionAPI",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    },
+    {
+      "name": "ImageStoreAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ImageStoreAPI",
+      "program": "${workspaceFolder}/Services/ImageStore/ImageStoreAPI/bin/Debug/net7.0/ImageStoreAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/ImageStore/ImageStoreAPI",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "all service",
+      "configurations": [
+        "IdentityAPI",
+        "GatewayAPI",
+        "ContentAPI",
+        "CategoryAPI",
+        "CommentAPI",
+        "ReactionAPI",
+        "ImageStoreAPI"
+      ],
+      "stopAll": true
+    }
+  ]
+}
