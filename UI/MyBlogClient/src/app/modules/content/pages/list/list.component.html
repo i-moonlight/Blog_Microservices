@@ -7,6 +7,11 @@
             <p class="m-0">
                 {{contentDto.text}}
             </p>
+            <ng-template pTemplate="footer">
+                <i class="pi pi-heart" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
+                <i class="pi pi-comment" style="font-size: 1rem; cursor: pointer;margin-right: 20px;">{{contentDto.comments.length}} </i>
+                <i class="pi pi-user" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>{{contentDto.user.username}}
+            </ng-template>
         </p-card>
     </div>
 </div>

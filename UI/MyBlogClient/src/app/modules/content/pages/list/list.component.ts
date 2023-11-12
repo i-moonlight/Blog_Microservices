@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.contentService.contents().subscribe(rv => {
       this.contentDtos = rv.data
+      console.log(this.contentDtos)
     })
   }
 
