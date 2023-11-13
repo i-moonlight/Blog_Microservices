@@ -13,6 +13,7 @@ public interface IContentService
     Task<Response<NoContent>> Create(ContentCreateDto contentCreateDto);
     Task<Response<NoContent>> Update(ContentUpdateDto contentUpdateDto);
     Task<Response<NoContent>> UpdateComment(Comment comment);
+    Task<Response<NoContent>> UpdateLike(Like like);
     Task<Response<NoContent>> Delete(string id);
 
 }

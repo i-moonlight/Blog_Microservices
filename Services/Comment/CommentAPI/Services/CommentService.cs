@@ -21,7 +21,7 @@ public class CommentService : ICommentService
     private IModel _channel;
     public static string ExchangeName = "CommentExchange";
     public static string RoutingComment = "comment-route-send";
-    public static string QueueName = "queue-comment-send";
+    public static string QueueName = "queue-comment-send"; 
     public CommentService(IBucketProvider bucketProvider, IConfiguration configuration, IMapper mapper, ConnectionFactory connectionFactory)
     {
         _bucketProvider = bucketProvider;

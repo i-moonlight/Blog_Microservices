@@ -12,5 +12,6 @@ public class GeneralMapping : Profile
         CreateMap<Content, ContentCreateDto>().ReverseMap();
         CreateMap<Content, ContentUpdateDto>().ReverseMap();
         CreateMap<CommentCreatedEvent, Comment>().ReverseMap();
+        CreateMap<LikeCreatedEvent, Like>().ReverseMap();
     }
 }

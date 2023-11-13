@@ -1,16 +1,12 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ReactionAPI.Models;
+namespace ContentAPI.Models;
 
 public class Like
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
-    public string UserId { get; set; }
-    public string CommentId { get; set; }
-    [BsonRepresentation(BsonType.DateTime)]
+    public string ContentId { get; set; }
     public DateTime CreatedTime { get; set; } = DateTime.Now;
     public User User { get; set; }
 }

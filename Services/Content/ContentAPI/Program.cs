@@ -41,6 +41,7 @@ builder.Services.AddAuthorization(options =>
     options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
 builder.Services.AddHostedService<ContentBackgroundService>();
+builder.Services.AddHostedService<ReactionBackgroundService>();
 builder.Services.AddSingleton<IContentService,ContentService>();
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));

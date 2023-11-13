@@ -80,4 +80,19 @@ public class ContentService : IContentService
 
         return Response<NoContent>.Success((int)HttpStatusCode.OK);
     }
+    public async Task<Response<NoContent>> UpdateLike(Like like)
+    {
+
+        var filter = Builders<Content>.Filter.Eq(content => content.Id, like.ContentId);
+        var oldContent = _contentCollection.Find(filter).First();
+
+        if (oldContent.Likes == null)
+            oldContent.Likes = new List<Like>();
+
+        oldContent.Likes.Add(like);
+
+        await _contentCollection.ReplaceOneAsync(filter, oldContent);
+
+        return Response<NoContent>.Success((int)HttpStatusCode.OK);
+    }
 }
