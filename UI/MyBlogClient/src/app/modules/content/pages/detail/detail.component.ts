@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ContentService } from "../../services/content.service";
 import { ContentDto } from "../../models/contentDto";
 import { CommentDto } from "../../models/commentDto";
+import { LikeDto } from "../../models/LikeDto";
 
 @Component({
   selector: "app-detail",
@@ -29,7 +30,13 @@ export class DetailComponent implements OnInit {
   }
 
   like() {
-    console.log("like");
+    var like=new LikeDto();
+    like.contentId=this.contentDto.id;
+    like.user=this.contentService.getUser();
+    this.contentService.sendLike(like).subscribe(rv=>{
+      this.contentDto.likes.push(like);
+      console.log(this.contentDto)
+    })
   }
 
   sendCommend() {

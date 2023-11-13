@@ -4,6 +4,8 @@ import { ReturnObject } from 'src/app/core/models/returnObject';
 import { HttpHelperService } from 'src/app/core/services/app.service';
 import { CommentDto } from '../models/commentDto';
 import { User } from 'src/app/core/models/user';
+import { LikeDto } from '../models/LikeDto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,10 @@ export class ContentService {
 
   sendComment(commentDto: CommentDto) {
     return this.httpHelperService.post("comment/comment/Create", commentDto)
+  }
+
+  sendLike(likeDto: LikeDto) {
+    return this.httpHelperService.post("reaction/reaction/like", likeDto)
   }
 
   getUser(){
