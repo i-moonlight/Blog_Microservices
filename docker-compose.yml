@@ -46,11 +46,66 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - my-network
-    container_name: rabbitmqcontainer
+      - rabbitmq
+    container_name: MyBlogRabbitmq
     restart: always
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+
+  MyBlog_LogMongo:
+      image: mongo:5.0.13
+      networks:
+        - graylog
+      ports:
+        - "27021:27017"
+      volumes:
+        - mongo_data:/data/db
+  
+  MyBlog_Elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+      environment:
+        - http.host=0.0.0.0
+        - transport.host=localhost
+        - network.host=0.0.0.0
+        - "ES_JAVA_OPTS=-Dlog4j2.formatMsgNoLookups=true -Xms512m -Xmx512m"
+      ulimits:
+        memlock:
+          soft: -1
+          hard: -1
+      networks:
+        - graylog
+      volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+
+  MyBlog_Graylog:
+      image: graylog/graylog:5.0
+      environment:
+      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+      entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
+      networks:
+        - graylog
+      restart: always
+      depends_on:
+        - MyBlog_LogMongo
+        - MyBlog_Elasticsearch
+      ports:
+      - 9000:9000
+      - 1514:1514
+      - 1514:1514/udp
+      - 12201:12201
+      - 12201:12201/udp
+      volumes:
+      - graylog_journal:/usr/share/graylog/data  # yeni volume tanımı
+
+
+networks:
+  graylog:
+    driver: bridge
+  rabbitmq:
+    driver: bridge
 
 volumes:
   category_data:
@@ -59,3 +114,6 @@ volumes:
   content_data:
   identity_data:
   rabbitmq_data:
+  mongo_data:
+  elasticsearch_data:
+  graylog_journal:
