@@ -21,7 +21,7 @@ namespace Namespace
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            _logger.LogInformation("merhaba");
+            _logger.LogInformation("logger test");
             return new string[] { "value1", "value2" };
         }
 
