@@ -50,46 +50,14 @@ services:
     restart: always
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-
-  MyBlog_LogMongoDb:
-    image: mongo:3
-    volumes:
-      - logmongo_data:/data/db
-
-  MyBlog_LogElasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.1
-    environment:
-      - http.host=0.0.0.0
-      - transport.host=localhost
-      - network.host=0.0.0.0
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    mem_limit: 1g
-
-  MyBlog_Graylog:
-    image: graylog/graylog:3.0
-    environment:
-      - GRAYLOG_PASSWORD_SECRET=mfyz11sanane22banane
-      # Password: admin
-      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
-    links:
-      - MyBlog_LogMongoDb:mongo
-      - MyBlog_LogElasticsearch
-    depends_on:
-      - MyBlog_LogMongoDb
-      - MyBlog_LogElasticsearch
+  MyBlog_Datalust_Seq:
+    image: datalust/seq:latest
     ports:
-      - 9000:9000 # Graylog web interface and REST API
-      - 5555:5555 # Raw/Plaintext TCP
-      - 1514:1514 # Syslog TCP
-      - 1514:1514/udp # Syslog UDP
-      - 12201:12201 # GELF TCP
-      - 12201:12201/udp # GELF UDP
-  
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - datalust_seq_data:/data
 
 networks:
   rabbitmq:
@@ -102,4 +70,4 @@ volumes:
   content_data:
   identity_data:
   rabbitmq_data:
-  logmongo_data:
+  datalust_seq_data:
