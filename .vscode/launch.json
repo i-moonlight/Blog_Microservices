@@ -139,6 +139,25 @@
       "launchBrowser": {
         "enabled": false
       }
+    },
+    {
+      "name": "LogAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-LogAPI",
+      "program": "${workspaceFolder}/Services/Logger/LogAPI/bin/Debug/net7.0/LogAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Logger/LogAPI",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
     }
   ],
   "compounds": [
@@ -151,7 +170,8 @@
         "CategoryAPI",
         "CommentAPI",
         "ReactionAPI",
-        "ImageStoreAPI"
+        "ImageStoreAPI",
+        "LogAPI"
       ],
       "stopAll": true
     }

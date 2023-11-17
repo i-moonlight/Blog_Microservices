@@ -1,5 +1,6 @@
 ﻿
 using System.Text;
+using CommentAPI.Services;
 using ContentAPI.Models.Settings;
 using ContentAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,6 +44,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddHostedService<ContentBackgroundService>();
 builder.Services.AddHostedService<ReactionBackgroundService>();
 builder.Services.AddSingleton<IContentService,ContentService>();
+builder.Services.AddSingleton<ILogService,LogService>();
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddSingleton<IDatabaseSettings>(sp =>

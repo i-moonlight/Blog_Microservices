@@ -1,5 +1,7 @@
 
+using ContentAPI.Services;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using Serilog;
 using Serilog.Events;
 
@@ -13,11 +15,20 @@ Log.Logger = new LoggerConfiguration()
 Log.Information("Hello, {Name}!", Environment.UserName);
 
 
- builder.Services.AddLogging(loggingBuilder =>
-    {
-        loggingBuilder.AddSeq();
-    });
+builder.Services.AddLogging(loggingBuilder =>
+   {
+       loggingBuilder.AddSeq();
+   });
 
+
+builder.Services.AddSingleton(sp => new ConnectionFactory()
+{
+    HostName = "localhost",
+    UserName = "guest",
+    Password = "guest"
+});
+
+builder.Services.AddHostedService<LogBackgroundService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

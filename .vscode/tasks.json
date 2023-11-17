@@ -93,6 +93,19 @@
 		  "kind": "build",
 		  "isDefault": true
 		}
+	  },
+	  {
+		"label": "build-LogAPI",
+		"command": "dotnet",
+		"type": "process",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/Services/Logger/LogAPI"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		}
 	  }
 	]
   }

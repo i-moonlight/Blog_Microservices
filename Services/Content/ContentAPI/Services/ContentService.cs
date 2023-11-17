@@ -1,12 +1,11 @@
 using System.Net;
-using System.Text;
+using System.Text.Json;
 using AutoMapper;
+using CommentAPI.Services;
 using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using ContentAPI.Models.Settings;
 using MongoDB.Driver;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 using SharedLib.Dtos;
 
 namespace ContentAPI.Services;
@@ -15,13 +14,15 @@ public class ContentService : IContentService
 {
     private readonly IMongoCollection<Content> _contentCollection;
     private readonly IMapper _mapper;
+    private readonly ILogService _logService;
 
-    public ContentService(IDatabaseSettings databaseSettings, IMapper mapper)
+    public ContentService(IDatabaseSettings databaseSettings, IMapper mapper, ILogService logService)
     {
         var client = new MongoClient(databaseSettings.ConnectionString);
         var database = client.GetDatabase(databaseSettings.DatabaseName);
         _contentCollection = database.GetCollection<Content>(databaseSettings.ContentCollectionName);
         _mapper = mapper;
+        _logService = logService;
     }
 
     public async Task<Response<NoContent>> Create(ContentCreateDto contentCreateDto)
@@ -48,6 +49,14 @@ public class ContentService : IContentService
     {
         var contents = await _contentCollection.FindSync(content => content.CategoryId == id).ToListAsync();
         var contentDtos = _mapper.Map<List<ContentDto>>(contents);
+        _logService.Publish(new LogCreatedEvent()
+        {
+            CreatedDate = new DateTime(),
+            LogType = "Get",
+            Message = JsonSerializer.Serialize(contentDtos)
+        });
+
+
         return Response<List<ContentDto>>.Success(contentDtos, (int)HttpStatusCode.OK);
     }
 
