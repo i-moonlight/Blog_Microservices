@@ -1,6 +1,8 @@
 ﻿
 using System.Text;
-using CommentAPI.Services;
+using AOPSample.Autofac;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using ContentAPI.Models.Settings;
 using ContentAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,6 +12,11 @@ using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//autofac conf
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+//
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
@@ -41,16 +48,16 @@ builder.Services.AddAuthorization(options =>
 {
     options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
-builder.Services.AddHostedService<ContentBackgroundService>();
-builder.Services.AddHostedService<ReactionBackgroundService>();
-builder.Services.AddSingleton<IContentService,ContentService>();
-builder.Services.AddSingleton<ILogService,LogService>();
+// builder.Services.AddHostedService<ContentBackgroundService>();
+// builder.Services.AddHostedService<ReactionBackgroundService>();
+// builder.Services.AddSingleton<IContentService,ContentService>();
+// builder.Services.AddSingleton<ILogService,LogService>();
 
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
-builder.Services.AddSingleton<IDatabaseSettings>(sp =>
-{
-    return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
-});
+// builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+// builder.Services.AddSingleton<IDatabaseSettings>(sp =>
+// {
+//     return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+// });
 
 var app = builder.Build();
 

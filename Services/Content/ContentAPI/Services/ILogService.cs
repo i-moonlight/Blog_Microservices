@@ -1,7 +1,7 @@
 using ContentAPI.Models.Dtos;
 using RabbitMQ.Client;
 
-namespace CommentAPI.Services;
+namespace ContentAPI.Services;
 
 public interface ILogService
 {

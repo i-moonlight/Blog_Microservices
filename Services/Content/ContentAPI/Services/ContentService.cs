@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text.Json;
 using AutoMapper;
-using CommentAPI.Services;
 using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using ContentAPI.Models.Settings;
@@ -16,8 +15,9 @@ public class ContentService : IContentService
     private readonly IMapper _mapper;
     private readonly ILogService _logService;
 
-    public ContentService(IDatabaseSettings databaseSettings, IMapper mapper, ILogService logService)
+    public ContentService(IConfiguration configuration, IMapper mapper, ILogService logService)
     {
+        var databaseSettings = configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
         var client = new MongoClient(databaseSettings.ConnectionString);
         var database = client.GetDatabase(databaseSettings.DatabaseName);
         _contentCollection = database.GetCollection<Content>(databaseSettings.ContentCollectionName);
@@ -45,6 +45,8 @@ public class ContentService : IContentService
         return Response<List<ContentDto>>.Success(contentDtos, (int)HttpStatusCode.OK);
     }
 
+
+  
     public async Task<Response<List<ContentDto>>> GetAllByCategoryId(string id)
     {
         var contents = await _contentCollection.FindSync(content => content.CategoryId == id).ToListAsync();

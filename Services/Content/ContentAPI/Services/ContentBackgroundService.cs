@@ -37,6 +37,7 @@ namespace ContentAPI.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+
             using (var scope = _serviceProvider.CreateScope())
             {
                 var channel = Connect();
@@ -52,6 +53,7 @@ namespace ContentAPI.Services
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
+                Console.WriteLine("conn=");
                     await Task.Delay(1000, stoppingToken);
                 }
             }

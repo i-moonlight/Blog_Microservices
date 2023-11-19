@@ -57,7 +57,7 @@ public class CommentService : ICommentService
         };
         await collection.InsertAsync<Comment>(comment.Id, comment);
 
-        CommentCreatedEvent commentCreatedEvent=new CommentCreatedEvent();
+        CommentCreatedEvent commentCreatedEvent=new();
         commentCreatedEvent.Text=comment.Text;
         commentCreatedEvent.User=comment.User;
         commentCreatedEvent.ContentId=comment.ContentId;

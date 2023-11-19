@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using CommentAPI.Services;
 using ContentAPI.Models.Dtos;
 using RabbitMQ.Client;
 
