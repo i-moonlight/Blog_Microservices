@@ -3,6 +3,9 @@ using System.Text;
 using AOPSample.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using ContentAPI.DependencyResolvers;
+using ContentAPI.Extensions;
+using ContentAPI.IoC;
 using ContentAPI.Models.Settings;
 using ContentAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -58,6 +61,12 @@ builder.Services.AddAuthorization(options =>
 // {
 //     return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
 // });
+
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule(),
+            });
 
 var app = builder.Build();
 

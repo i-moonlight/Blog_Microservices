@@ -1,38 +1,29 @@
 ﻿using Castle.DynamicProxy;
+using ContentAPI.CrossCuttingConcerns.Interceptors;
+using ContentAPI.IoC;
 using ContentAPI.Services;
 using System;
 
 
- namespace ContentAPI.CrossCuttingConcerns.Logging
- {
-    // public class LogAspect : InterceptionAttribute
-    // {
-    //     // private readonly ILogService _logger;
-    //     public LogAspect()
-    //     {
-    //         // _logger = Log.ForContext(GetType());
-    //     }
-
-    //     public override void OnBefore(IInvocation invocation)
-    //     {
-    //         // _logger.Information(invocation.Method.Name + " started.");
-
-    //     }
-    //     public override void OnException(IInvocation invocation, Exception e)
-    //     {
-    //         // _logger.Error("While " + invocation.Method.Name + " works something went wrong.");
-    //     }
-
-    //     public override void OnSuccess(IInvocation invocation)
-    //     {
-    //         // _logger.Information(invocation.Method.Name + " successfully worked");
-    //     }
-    //     public override void OnAfter(IInvocation invocation)
-    //     {
-    //         // _logger.Information(invocation.Method.Name + " has finished working.");
-    //     }
-    // }
- }
+namespace ContentAPI.CrossCuttingConcerns.Logging
+{
+   public class LogAspect : MethodInterception
+   {
+      protected override void OnBefore(IInvocation invocation)
+      {
+         var _logService = ServiceTool.ServiceProvider.GetService<ILogService>();
+         if (invocation.Arguments.Length > 0)
+         {
+            _logService.Publish(new Models.Dtos.LogCreatedEvent()
+            {
+               Message = invocation.Method.Name + " metodu parametresi =" + invocation.Arguments[0],
+               LogType = "info",
+               CreatedDate = new DateTime()
+            });
+         }
+      }
+   }
+}
 
 
 

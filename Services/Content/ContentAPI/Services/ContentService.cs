@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using AutoMapper;
+using ContentAPI.CrossCuttingConcerns.Logging;
 using ContentAPI.Models;
 using ContentAPI.Models.Dtos;
 using ContentAPI.Models.Settings;
@@ -46,7 +47,7 @@ public class ContentService : IContentService
     }
 
 
-  
+    [LogAspect()]
     public async Task<Response<List<ContentDto>>> GetAllByCategoryId(string id)
     {
         var contents = await _contentCollection.FindSync(content => content.CategoryId == id).ToListAsync();

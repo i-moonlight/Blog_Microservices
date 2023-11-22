@@ -1,5 +1,7 @@
 ﻿
 using Castle.DynamicProxy;
+using ContentAPI.CrossCuttingConcerns.Logging;
+using ContentAPI.Services;
 using System.Reflection;
 
 namespace ContentAPI.CrossCuttingConcerns.Interceptors
@@ -11,8 +13,7 @@ namespace ContentAPI.CrossCuttingConcerns.Interceptors
             var classAttributes = type.GetCustomAttributes<MethodInterceptionBaseAttribute>(true).ToList();
             var methodAttributes = type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
             classAttributes.AddRange(methodAttributes);
-            // classAttributes.Add(new LogAspect(typeof(SeqLogger)));
-            // classAttributes.Add(new ExceptionLogAspect(typeof(SeqLogger)));
+            classAttributes.Add(new LogAspect());
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
     }
