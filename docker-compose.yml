@@ -58,6 +58,17 @@ services:
       - ACCEPT_EULA=Y
     volumes:
       - datalust_seq_data:/data
+  MyBlog_Minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: Strong#Pass#2023
+    command: server --console-address ":9001" /data
 
 networks:
   rabbitmq:
@@ -71,3 +82,4 @@ volumes:
   identity_data:
   rabbitmq_data:
   datalust_seq_data:
+  minio_data:
