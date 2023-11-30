@@ -20,6 +20,7 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { DialogModule } from 'primeng/dialog';
     TableModule,
     PaginatorModule,
     ProgressBarModule,
-    DialogModule
+    DialogModule,
+    FileUploadModule
   ]
 })
 export class PrimengModule { }

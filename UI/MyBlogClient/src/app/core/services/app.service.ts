@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { Observable, from, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class HttpHelperService {
     return this.http.get(`${this.apiUrl}/${endpoint}`);
   }
 
-  post(endpoint: string, data: any): Observable<any> {
+  post(endpoint: string, data: any,header:HttpHeaders=new HttpHeaders()): Observable<any> {
     return this.http.post(`${this.apiUrl}/${endpoint}`, data)
   }
 

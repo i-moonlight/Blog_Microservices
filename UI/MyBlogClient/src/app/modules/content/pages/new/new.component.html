@@ -1,0 +1,25 @@
+<p-card header="New Content">
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            <p-button label="Save" (onClick)="save()"></p-button>
+        </div>
+        <div class="col-12 md:col-12">
+            <div class="flex flex-column gap-2">
+                <label htmlFor="username">Title</label>
+                <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="contentDto.title" />
+            </div>
+        </div>
+        <div class="col-12 md:col-12">
+            <div class="flex flex-column gap-2">
+                <label htmlFor="username">Content</label>
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="contentDto.text"></textarea>
+            </div>
+        </div>
+        <div class="col-12 md:col-12">
+            <input type="file" class="file-upload" (change)="onUpload($event)">
+            {{fileName}}
+
+            <img [src]="url" *ngIf="url" height="200">
+        </div>
+    </div>
+</p-card>

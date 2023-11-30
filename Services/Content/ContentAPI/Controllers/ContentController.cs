@@ -40,7 +40,7 @@ public class ContentController : CustomBaseController
     }
 
     [HttpPost("Create")]
-    public async Task<IActionResult> Create(ContentCreateDto contentCreateDto)
+    public async Task<IActionResult> Create([FromForm] ContentCreateDto contentCreateDto)
     {
         var response = await _contentService.Create(contentCreateDto);
 

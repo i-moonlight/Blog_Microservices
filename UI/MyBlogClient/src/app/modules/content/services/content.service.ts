@@ -4,7 +4,9 @@ import { ReturnObject } from 'src/app/core/models/returnObject';
 import { HttpHelperService } from 'src/app/core/services/app.service';
 import { CommentDto } from '../models/commentDto';
 import { User } from 'src/app/core/models/user';
+import { ContentCreateDto } from '../models/contentCreateDto';
 import { LikeDto } from '../models/LikeDto';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
@@ -36,6 +38,14 @@ export class ContentService {
 
   getUser(){
     return JSON.parse(localStorage.getItem("user")!) as User
+  }
+
+  createContent(content:any){
+    const headers = new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+      'Accept': 'application/json'
+    });
+    return this.httpHelperService.post("content/content/create",content,headers);
   }
 
 }

@@ -13,29 +13,32 @@
     </button>
 
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <button class="p-link layout-topbar-button" [routerLink]="'new'">
+            <i class="pi pi-plus"></i>
+            <span>New</span>
+        </button>
         <button class="p-link layout-topbar-button" (click)="op.toggle($event)">
             <i class="pi pi-user"></i>
             <span>Profile</span>
         </button>
     </div>
 </div>
+
 <p-overlayPanel #op>
     <ng-template pTemplate="content">
-        <!-- <i class="pi pi-angle-right"></i> {{user.profile['FullName']}}
-        <hr>
-        <i class="pi pi-envelope"></i> {{user.profile['Email']}}
-        <hr> -->
-        
-            <button class="p-link layout-topbar-button" (click)="signOut()">
-                <i class="pi pi-sign-out"></i>
-                <span> Sign Out</span>
-            </button>
-        
-        
-            <button class="p-link layout-topbar-button" (click)="signIn()">
-                <i class="pi pi-sign-in"></i>
-                <span> Sign In</span>
-            </button>
-        
+        <div class="gird">
+            <div class="col-12 md:col-12">
+                <button class="p-link layout-topbar-button" (click)="signOut()" >
+                    <i class="pi pi-sign-out"></i>
+                    <span> Sign Out</span>
+                </button>
+            </div>
+            <div class="col-12 md:col-12">
+                <button class="p-link layout-topbar-button" (click)="signIn()" >
+                    <i class="pi pi-sign-in"></i>
+                    <span> Sign In</span>
+                </button>
+            </div>
+        </div>
     </ng-template>
 </p-overlayPanel>

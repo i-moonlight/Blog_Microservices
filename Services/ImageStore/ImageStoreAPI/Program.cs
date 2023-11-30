@@ -1,8 +1,17 @@
 ﻿using ImageStoreAPI.Services;
+using Minio;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+ var endpoint = "localhost:9001";
+    var accessKey = "shLtQJKQi5WC105JegsY";
+    var secretKey = "elgwdoJ5NJu3PYosfBFQ6vJQkgIBinPV8OkM2D31";
+    
+builder.Services.AddMinio(accessKey, secretKey);
+builder.Services.AddMinio(configureClient => configureClient
+            .WithEndpoint(endpoint)
+            .WithCredentials(accessKey, secretKey)
+            .WithSSL());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
