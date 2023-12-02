@@ -1,19 +1,36 @@
+using Minio;
+using Minio.DataModel.Args;
 using SharedLib.Dtos;
 
 namespace ImageStoreAPI.Services;
 
 public class ImageService : IImageService
 {
-    private static readonly string ImageUploadPath = "Uploads";
+    private readonly IMinioClient _minioClient;
+
+    public ImageService(IMinioClient minioClient)
+    {
+        _minioClient = minioClient;
+    }
+
     public async Task<Response<string>> UploadImage(IFormFile file)
     {
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-        string filePath = Path.Combine("wwwroot", ImageUploadPath, fileName);
+        var bucketName = "image";
+        var objectName = file.FileName;
 
-        using (var stream = new FileStream(filePath, FileMode.Create))
+        using (var stream = file.OpenReadStream())
         {
-            await file.CopyToAsync(stream);
+            var putObjectArgs = new PutObjectArgs()
+                .WithBucket(bucketName)
+                .WithObject(objectName)
+                .WithStreamData(stream)
+                .WithObjectSize(file.Length);
+
+            await _minioClient.PutObjectAsync(putObjectArgs);
         }
-        return Response<string>.Success("/Uploads/"+fileName,200);
+
+        var url = $"http://localhost:9000/image/{objectName}";
+
+        return Response<string>.Success(url, 200);
     }
 }
