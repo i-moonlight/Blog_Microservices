@@ -7,4 +7,5 @@ public class ContentUpdateDto
     public string Text { get; set; }
     public string ImageUrl { get; set; }
     public string CategoryId { get; set; }
+    public User User { get; set; }
 }

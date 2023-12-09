@@ -16,6 +16,14 @@
     </div>
 </div>
 <div class="grid">
+    <div class="col-12 md:col-12">
+        <p-card>
+            <textarea rows="5" cols="30" style="width: 100%;" placeholder="comment ..." pInputTextarea
+                [(ngModel)]="comment"></textarea>
+            <p-button label="Send Comment" (onClick)="sendCommend()"></p-button>
+        </p-card>
+
+    </div>
     <div class="col-12 md:col-12" *ngIf="contentDto.comments.length>0">
         <p-card header="Comments">
             <div style="overflow-y: auto;height: 20vh;">
@@ -33,12 +41,5 @@
             </div>
         </p-card>
     </div>
-    <div class="col-12 md:col-12">
-        <p-card>
-            <textarea rows="5" cols="30" style="width: 100%;" placeholder="comment ..." pInputTextarea
-                [(ngModel)]="comment"></textarea>
-            <p-button label="Send Comment" (onClick)="sendCommend()"></p-button>
-        </p-card>
 
-    </div>
 </div>

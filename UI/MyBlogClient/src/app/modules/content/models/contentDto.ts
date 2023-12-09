@@ -9,4 +9,5 @@ export class ContentDto {
     comments:CommentDto[]=[]
     likes:LikeDto[]=[]
     user!:User
+    imageUrl!:string
 }

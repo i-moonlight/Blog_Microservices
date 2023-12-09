@@ -21,7 +21,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { StepsModule } from 'primeng/steps';
 
 @NgModule({
   declarations: [],
@@ -48,7 +48,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     PaginatorModule,
     ProgressBarModule,
     DialogModule,
-    FileUploadModule
+    FileUploadModule,
+    StepsModule
   ]
 })
 export class PrimengModule { }

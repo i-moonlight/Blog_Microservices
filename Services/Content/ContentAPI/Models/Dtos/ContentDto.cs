@@ -8,5 +8,6 @@ public class ContentDto
     public List<Comment> Comments { get; set; }
     public List<Like> Likes { get; set; }
     public User User { get; set; }
+    public string ImageUrl { get; set; }
     
 }

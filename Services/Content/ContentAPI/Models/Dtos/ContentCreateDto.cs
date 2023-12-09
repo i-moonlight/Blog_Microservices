@@ -6,5 +6,4 @@ public class ContentCreateDto
     public string Text { get; set; }
     public string CategoryId { get; set; }
     public User User { get; set; }
-    public IFormFile Image { get; set; }
 }

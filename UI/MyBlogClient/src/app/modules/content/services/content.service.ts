@@ -7,6 +7,7 @@ import { User } from 'src/app/core/models/user';
 import { ContentCreateDto } from '../models/contentCreateDto';
 import { LikeDto } from '../models/LikeDto';
 import { HttpHeaders } from '@angular/common/http';
+import { ContentUpdateDto } from '../models/contentUpdateDto';
 
 
 @Injectable({
@@ -41,11 +42,15 @@ export class ContentService {
   }
 
   createContent(content:any){
-    const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
-      'Accept': 'application/json'
-    });
-    return this.httpHelperService.post("content/content/create",content,headers);
+    return this.httpHelperService.post("content/content/create",content);
+  }
+
+  upload(file:any){
+    return this.httpHelperService.post('imagesstore/image/upload',file);
+  }
+
+  updateContent(content:ContentUpdateDto){
+    return this.httpHelperService.post('content/content/Update',content)
   }
 
 }

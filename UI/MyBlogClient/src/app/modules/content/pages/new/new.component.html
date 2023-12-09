@@ -1,8 +1,6 @@
-<p-card header="New Content">
+<p-card header="New Content" *ngIf="activeIndex==0">
     <div class="grid">
-        <div class="col-12 md:col-12">
-            <p-button label="Save" (onClick)="save()"></p-button>
-        </div>
+    
         <div class="col-12 md:col-12">
             <div class="flex flex-column gap-2">
                 <label htmlFor="username">Title</label>
@@ -16,10 +14,32 @@
             </div>
         </div>
         <div class="col-12 md:col-12">
-            <input type="file" class="file-upload" (change)="onUpload($event)">
-            {{fileName}}
-
-            <img [src]="url" *ngIf="url" height="200">
+            <p-button label="Next" (onClick)="next(1)"></p-button>
         </div>
     </div>
+</p-card>
+
+<p-card header="New Content" *ngIf="activeIndex==1">
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            <input type="file" class="file-upload" (change)="onUpload($event)">
+            {{fileName}}
+            <img [src]="url" *ngIf="url" height="200">
+        </div>
+        <div class="col-12 md:col-12">
+            <p-button label="Next" (onClick)="next(2)"></p-button>
+        </div>
+    </div>
+</p-card>
+
+<p-card header="New Content" *ngIf="activeIndex==2">
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            content creation successfully completed
+        </div>
+    </div>
+</p-card>
+
+<p-card header="Steps" [style]="{'margin-top':'20px'}">
+    <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
 </p-card>

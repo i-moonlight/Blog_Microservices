@@ -26,11 +26,12 @@ public class ContentService : IContentService
         _logService = logService;
     }
 
-    public async Task<Response<NoContent>> Create(ContentCreateDto contentCreateDto)
+    public async Task<Response<string>> Create(ContentCreateDto contentCreateDto)
     {
         var content = _mapper.Map<Content>(contentCreateDto);
         await _contentCollection.InsertOneAsync(content);
-        return Response<NoContent>.Success((int)HttpStatusCode.OK);
+        string insertedId = content.Id.ToString();
+        return Response<string>.Success(insertedId,(int)HttpStatusCode.OK);
     }
 
     public async Task<Response<NoContent>> Delete(string id)
