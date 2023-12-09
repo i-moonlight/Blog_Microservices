@@ -15,7 +15,6 @@ export class ListComponent implements OnInit {
   
   ngOnInit(): void {
     this.categoryService.categories().subscribe(rv=>{
-      console.log(rv)
     })
   }
 

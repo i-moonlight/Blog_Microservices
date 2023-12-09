@@ -9,5 +9,6 @@ public class ContentDto
     public List<Like> Likes { get; set; }
     public User User { get; set; }
     public string ImageUrl { get; set; }
+    public string CategoryId { get; set; }
     
 }

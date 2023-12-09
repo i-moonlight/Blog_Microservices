@@ -10,4 +10,5 @@ export class ContentDto {
     likes:LikeDto[]=[]
     user!:User
     imageUrl!:string
+    categoryId!:string
 }

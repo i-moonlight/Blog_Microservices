@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentService } from '../../services/content.service';
 import { ContentDto } from '../../models/contentDto';
+import { ContentService } from '../../services/content.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
-export class ListComponent implements OnInit {
-
+export class EditComponent implements OnInit{
+  
   contentDtos: ContentDto[] = []
 
   constructor(private contentService: ContentService) {
-
   }
 
   ngOnInit(): void {
@@ -20,5 +19,6 @@ export class ListComponent implements OnInit {
       this.contentDtos = rv.data
     })
   }
+
 
 }

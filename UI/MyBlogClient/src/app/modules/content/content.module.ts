@@ -7,12 +7,16 @@ import { canActivate } from 'src/app/core/guard/auth-guard';
 import { DetailComponent } from './pages/detail/detail.component';
 import { CategoryOfContentComponent } from './pages/category-of-content/category-of-content.component';
 import { NewComponent } from './pages/new/new.component';
+import { EditComponent } from './pages/edit/edit.component';
+import { EditDetailComponent } from './pages/edit-detail/edit-detail.component';
 
 const routes: Routes = [
   { path: "", component: ListComponent, canActivate: [canActivate] },
   { path: "detail/:id", component: DetailComponent, canActivate: [canActivate] },
   { path: "category-of-content/:id", component: CategoryOfContentComponent, canActivate: [canActivate] },
   { path: "new", component: NewComponent, canActivate: [canActivate] },
+  { path: "edit", component: EditComponent, canActivate: [canActivate] },
+  { path: "edit-detail/:id", component: EditDetailComponent, canActivate: [canActivate] },
 ];
 
 
@@ -21,7 +25,9 @@ const routes: Routes = [
     ListComponent,
     DetailComponent,
     CategoryOfContentComponent,
-    NewComponent
+    NewComponent,
+    EditComponent,
+    EditDetailComponent
   ],
   imports: [
     CommonModule,

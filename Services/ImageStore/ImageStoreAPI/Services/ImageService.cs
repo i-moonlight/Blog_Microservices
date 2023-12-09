@@ -26,9 +26,7 @@ public class ImageService : IImageService
                 .WithStreamData(stream)
                 .WithObjectSize(file.Length);
 
-            var result=await _minioClient.PutObjectAsync(putObjectArgs);
-            
-            // await _minioClient.PresignedGetObjectAsync(bucketName,objectName,);
+            await _minioClient.PutObjectAsync(putObjectArgs);
         }
 
         var url = $"http://localhost:9000/image/{objectName}";

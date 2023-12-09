@@ -1,0 +1,17 @@
+<div class="grid">
+    <div class="col-12 md:col-4" *ngFor="let contentDto of contentDtos">
+        <p-card header="{{contentDto.title}}" [routerLink]="'/edit-detail/'+contentDto.id">
+            <ng-template pTemplate="header">
+                <img alt="Card" src="{{contentDto.imageUrl}}" />
+            </ng-template>
+            <p class="m-0">
+                {{contentDto.text}}
+            </p>
+            <ng-template pTemplate="footer">
+                {{contentDto.likes.length}}<i class="pi pi-heart" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
+                {{contentDto.comments.length}}<i class="pi pi-comment" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
+                {{contentDto.user.username}}<i class="pi pi-user" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
+            </ng-template>
+        </p-card>
+    </div>
+</div>

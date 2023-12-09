@@ -35,7 +35,6 @@ export class DetailComponent implements OnInit {
     like.user=this.contentService.getUser();
     this.contentService.sendLike(like).subscribe(rv=>{
       this.contentDto.likes.push(like);
-      console.log(this.contentDto)
     })
   }
 

@@ -63,26 +63,14 @@ export class NewComponent implements OnInit {
   }
   updateContent() {
     let updateContent: ContentUpdateDto = { ...this.contentDto, id: this.contentId, imageUrl: this.imageUrl };
+    this.contentService.updateContent(updateContent).subscribe(rv => {
 
-    var content = new ContentUpdateDto();
-    content.categoryId = this.contentDto.categoryId;
-    content.id = this.contentId;
-    content.imageUrl = this.imageUrl;
-    content.text = this.contentDto.text;
-    content.title = this.contentDto.title;
-    content.user = this.contentService.getUser();
-
-
-    console.log(content)
-    this.contentService.updateContent(content).subscribe(rv => {
-      console.log(rv);
     });
   }
 
   uploadImage() {
     const formData: FormData = new FormData();
     formData.append('file', this.contentDto.image, this.contentDto.image.name);
-    console.log(formData)
     this.contentService.upload(formData).subscribe(rv => {
       this.imageUrl = rv.data;
       if (this.imageUrl != "") {
