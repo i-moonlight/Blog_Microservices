@@ -2,7 +2,7 @@
     <div class="col-12 md:col-12">
         <p-card header="{{contentDto.title}}">
             <ng-template pTemplate="header">
-                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" height="300" />
+                <img alt="Card" src="{{contentDto.imageUrl}}" [style]="{'width':'100%'}" />
             </ng-template>
             <p class="m-0">
                 {{contentDto.text}}
@@ -10,7 +10,8 @@
             <ng-template pTemplate="footer">
                 {{contentDto.likes.length}}<i class="pi pi-heart" style="font-size: 1rem; cursor: pointer;margin-right: 20px;" (click)="like()"></i>
                 {{contentDto.comments.length}}<i class="pi pi-comment" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
-                {{contentDto.user.username}}<i class="pi pi-user" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
+                {{contentDto.user.username}}
+                <i class="pi pi-user" style="font-size: 1rem; cursor: pointer;margin-right: 20px;"></i>
             </ng-template>
         </p-card>
     </div>

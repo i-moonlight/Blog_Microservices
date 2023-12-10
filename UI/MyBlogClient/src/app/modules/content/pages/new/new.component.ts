@@ -3,6 +3,8 @@ import { ContentCreateDto } from '../../models/contentCreateDto';
 import { ContentService } from '../../services/content.service';
 import { MenuItem } from 'primeng/api';
 import { ContentUpdateDto } from '../../models/contentUpdateDto';
+import { CategoryService } from 'src/app/modules/category/services/category.service';
+import { CategoryDto } from 'src/app/modules/category/models/categoryDto';
 
 @Component({
   selector: 'app-new',
@@ -21,8 +23,10 @@ export class NewComponent implements OnInit {
 
   contentId!: string;
   imageUrl!: string;
+  categories: CategoryDto[] = [];
+  category: CategoryDto = new CategoryDto();
 
-  constructor(private contentService: ContentService) {
+  constructor(private contentService: ContentService, private categoryService: CategoryService) {
 
   }
 
@@ -33,6 +37,11 @@ export class NewComponent implements OnInit {
       { label: 'Add Content Page Image', command: (event: any) => { } },
       { label: 'Complete', command: (event: any) => { } },
     ];
+
+    this.categoryService.categories().subscribe(rv => {
+      this.categories = rv.data;
+      // this.category = this.categories[0]
+    })
   }
 
   onUpload(event: any) {
@@ -55,7 +64,8 @@ export class NewComponent implements OnInit {
   }
 
   createContent() {
-    this.contentDto.categoryId = "65554bb9234048202cda61e9";
+    console.log(this.category)
+    this.contentDto.categoryId = this.category.id;
     this.contentDto.user = this.contentService.getUser();
     this.contentService.createContent(this.contentDto).subscribe(rv => {
       this.contentId = rv.data

@@ -9,6 +9,7 @@ import { CategoryOfContentComponent } from './pages/category-of-content/category
 import { NewComponent } from './pages/new/new.component';
 import { EditComponent } from './pages/edit/edit.component';
 import { EditDetailComponent } from './pages/edit-detail/edit-detail.component';
+import { CategoryService } from '../category/services/category.service';
 
 const routes: Routes = [
   { path: "", component: ListComponent, canActivate: [canActivate] },
@@ -33,6 +34,9 @@ const routes: Routes = [
     CommonModule,
     PrimengModule,
     RouterModule.forChild(routes)
+  ],
+  providers:[
+    CategoryService
   ]
 })
 export class ContentModule { }

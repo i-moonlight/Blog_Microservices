@@ -39,6 +39,13 @@ public class ContentController : CustomBaseController
         return CreateActionResultInstance(content);
     }
 
+    [HttpGet("GetAllByUserId")]
+    public async Task<IActionResult> GetAllByUserId(string userId)
+    {
+        var content = await _contentService.GetAllByUserId(userId);
+        return CreateActionResultInstance(content);
+    }
+
     [HttpPost("Create")]
     public async Task<IActionResult> Create(ContentCreateDto contentCreateDto)
     {

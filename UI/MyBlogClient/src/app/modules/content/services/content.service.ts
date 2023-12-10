@@ -4,10 +4,8 @@ import { ReturnObject } from 'src/app/core/models/returnObject';
 import { HttpHelperService } from 'src/app/core/services/app.service';
 import { CommentDto } from '../models/commentDto';
 import { User } from 'src/app/core/models/user';
-import { ContentCreateDto } from '../models/contentCreateDto';
-import { LikeDto } from '../models/LikeDto';
-import { HttpHeaders } from '@angular/common/http';
 import { ContentUpdateDto } from '../models/contentUpdateDto';
+import { LikesDto } from '../models/likesDto';
 
 
 @Injectable({
@@ -25,6 +23,10 @@ export class ContentService {
     return this.httpHelperService.get("content/content/GetAllByCategoryName?categoryId=" + id)
   }
 
+  contentByUserId(id: string): Observable<ReturnObject> {
+    return this.httpHelperService.get("content/content/GetAllByUserId?userId=" + id)
+  }
+
   contentDetaild(id: string): Observable<ReturnObject> {
     return this.httpHelperService.get("content/content/GetById?id=" + id)
   }
@@ -33,7 +35,7 @@ export class ContentService {
     return this.httpHelperService.post("comment/comment/Create", commentDto)
   }
 
-  sendLike(likeDto: LikeDto) {
+  sendLike(likeDto: LikesDto) {
     return this.httpHelperService.post("reaction/reaction/like", likeDto)
   }
 

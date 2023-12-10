@@ -15,7 +15,8 @@ export class EditComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.contentService.contents().subscribe(rv => {
+    var user=this.contentService.getUser();
+    this.contentService.contentByUserId(user.id).subscribe(rv => {
       this.contentDtos = rv.data
     })
   }
