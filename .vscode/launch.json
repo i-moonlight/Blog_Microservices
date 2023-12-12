@@ -10,10 +10,6 @@
       "args": [],
       "cwd": "${workspaceFolder}/Services/Identity/IdentityAPI",
       "stopAtEntry": false,
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -30,10 +26,6 @@
       "args": [],
       "cwd": "${workspaceFolder}/GatewayAPI",
       "stopAtEntry": false,
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -50,10 +42,6 @@
       "args": [],
       "cwd": "${workspaceFolder}/Services/Content/ContentAPI",
       "stopAtEntry": false,
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       },
@@ -70,10 +58,6 @@
       "args": [],
       "cwd": "${workspaceFolder}/Services/Category/CategoryAPI",
       "stopAtEntry": false,
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       },
@@ -90,10 +74,6 @@
       "args": [],
       "cwd": "${workspaceFolder}/Services/Comment/CommentAPI",
       "stopAtEntry": false,
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -110,10 +90,6 @@
       "args": [],
       "cwd": "${workspaceFolder}/Services/Reaction/ReactionAPI",
       "stopAtEntry": false,
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
