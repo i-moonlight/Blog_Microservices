@@ -8,3 +8,4 @@ reactionApi    : 5017
 imageStoreApi  : 5018
 categoryApi    : 5019
 logApi         : 5020
+cacheApi       : 5021

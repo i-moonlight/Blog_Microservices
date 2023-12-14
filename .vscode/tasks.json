@@ -106,6 +106,19 @@
 		  "kind": "build",
 		  "isDefault": true
 		}
+	  },
+	  {
+		"label": "build-CacheAPI",
+		"command": "dotnet",
+		"type": "process",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/Services/Cache/CacheAPI"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		}
 	  }
 	]
   }

@@ -134,6 +134,25 @@
       "launchBrowser": {
         "enabled": false
       }
+    },
+    {
+      "name": "CacheAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-CacheAPI",
+      "program": "${workspaceFolder}/Services/Cache/CacheAPI/bin/Debug/net7.0/CacheAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Services/Cache/CacheAPI",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      },
+      "launchBrowser": {
+        "enabled": false
+      }
     }
   ],
   "compounds": [
@@ -147,7 +166,8 @@
         "CommentAPI",
         "ReactionAPI",
         "ImageStoreAPI",
-        "LogAPI"
+        "LogAPI",
+        "CacheAPI"
       ],
       "stopAll": true
     }

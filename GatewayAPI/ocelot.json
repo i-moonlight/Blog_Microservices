@@ -84,6 +84,23 @@
           "AuthenticationProviderKey": "Bearer",
           "AllowedScopes": []
         }
+      },
+      {
+        "DownstreamPathTemplate": "/api/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 5021
+          }
+        ],
+        "UpstreamPathTemplate": "/services/cache/{everything}",
+        "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+        "UpstreamScheme": "http",
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
       }
     ],
     "GlobalConfiguration": {
