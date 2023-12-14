@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CacheAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 
@@ -19,10 +20,10 @@ namespace Namespace
         }
 
         [HttpPost("add")]
-        public IActionResult AddToCache(string key,string value, int expirySeconds = 3600)
+        public IActionResult AddToCache(CacheDto cacheDto)
         {
             var database = _redis.GetDatabase();
-            var isSuccess = database.StringSet(key, value, TimeSpan.FromSeconds(expirySeconds));
+            var isSuccess = database.StringSet(cacheDto.Key, cacheDto.Value, TimeSpan.FromSeconds(cacheDto.ExpirySeconds));
 
             if (isSuccess)
                 return Ok("added");

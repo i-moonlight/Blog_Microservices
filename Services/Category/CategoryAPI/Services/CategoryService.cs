@@ -7,6 +7,8 @@ using MongoDB.Driver;
 using SharedLib.Dtos;
 using System.Text.Json;
 using System.Text;
+using System.Text.Unicode;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace CategoryAPI.Services;
 
@@ -14,15 +16,15 @@ public class CategoryService : ICategoryService
 {
     private readonly IMongoCollection<Category> _categoryCollection;
     private readonly IMapper _mapper;
-    private readonly HttpClient _httpClient;
-    public CategoryService(IDatabaseSettings databaseSettings, IMapper mapper, HttpClient httpClient, IHttpClientFactory _httpClientFactory)
+    private readonly ICacheService _cacheService;
+
+    public CategoryService(IDatabaseSettings databaseSettings, IMapper mapper, ICacheService cacheService)
     {
         var client = new MongoClient(databaseSettings.ConnectionString);
         var database = client.GetDatabase(databaseSettings.DatabaseName);
         _categoryCollection = database.GetCollection<Category>(databaseSettings.CategoryCollectionName);
         _mapper = mapper;
-        _httpClient = _httpClientFactory.CreateClient();
-        _httpClient.BaseAddress = new Uri("http://localhost:5021/api/");
+        _cacheService = cacheService;
     }
 
     public async Task<Response<NoContent>> Create(CategoryCreateDto categoryCreateDto)
@@ -40,31 +42,20 @@ public class CategoryService : ICategoryService
 
     public async Task<Response<List<CategoryDto>>> GetAll()
     {
-        var responseData = await _httpClient.GetAsync("cache/get?key=" + "category_getall");
+        var cacheData = await _cacheService.Get("category_getall");
         var categoriesDtos = new List<CategoryDto>();
-        if (responseData.IsSuccessStatusCode)
-        {
 
-            var categories = await responseData.Content.ReadAsStringAsync();
-            categoriesDtos = JsonSerializer.Deserialize<List<CategoryDto>>(categories);
+        if (cacheData != "")
+        {
+            categoriesDtos = JsonSerializer.Deserialize<List<CategoryDto>>(cacheData);
         }
         else
         {
             var categories = await _categoryCollection.FindSync(category => true).ToListAsync();
             categoriesDtos = _mapper.Map<List<CategoryDto>>(categories);
 
-
-            var requestData = new
-            {
-                key = "category_getall",
-                value = categoriesDtos,
-                expirySeconds = 3600
-            };
-
-            var jsonData = JsonSerializer.Serialize(requestData);
-            StringContent stringContent = new(jsonData, Encoding.UTF8, "application/json");
-            
-            await _httpClient.PostAsync("cache/add", stringContent);
+            var jsonData = JsonSerializer.Serialize(categoriesDtos);
+            _cacheService.Add(new CacheDto() { Key = "category_getall", Value = jsonData });
         }
         return Response<List<CategoryDto>>.Success(categoriesDtos, (int)HttpStatusCode.OK);
     }

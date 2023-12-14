@@ -39,6 +39,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddSingleton<ICategoryService, CategoryService>();
+builder.Services.AddSingleton<ICacheService, CacheService>();
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddSingleton<IDatabaseSettings>(sp =>
