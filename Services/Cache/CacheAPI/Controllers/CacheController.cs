@@ -43,8 +43,8 @@ namespace Namespace
                 return NotFound("not found");
         }
 
-        [HttpDelete("delete")]
-        public IActionResult DeleteFromCache([FromQuery] string key)
+        [HttpGet("delete")]
+        public IActionResult DeleteFromCache(string key)
         {
             var database = _redis.GetDatabase();
             var isDeleted = database.KeyDelete(key);
