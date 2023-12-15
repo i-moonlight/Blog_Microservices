@@ -58,7 +58,13 @@ services:
       - ACCEPT_EULA=Y
     volumes:
       - datalust_seq_data:/data
-  MyBlog_Minio:
+  Myblog_RedisDb:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+  MyBlog_Minio: 
     image: minio/minio
     ports:
       - "9000:9000"
@@ -83,3 +89,4 @@ volumes:
   rabbitmq_data:
   datalust_seq_data:
   minio_data:
+  redis_data:
